@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.animeplatform.mapper.DanmakuMapper">
+
+    <insert id="addDanmaku">
+        insert into danmaku(anime_id, user_id, content, time, color, font_size, type)
+        values (#{animeId}, #{userId}, #{content}, #{time}, #{color}, #{fontSize}, #{type})
+    </insert>
+
+    <update id="updateDanmaku">
+        UPDATE danmaku
+        SET
+        <if test="content != null and content != ''">
+            content = #{content},
+        </if>
+        <if test="timestamp != null">
+            timestamp = #{timestamp},
+        </if>
+        <if test="color != null and color != ''">
+            color = #{color},
+        </if>
+        <if test="fontSize != null and fontSize != ''">
+            font_size = #{fontSize},
+        </if>
+        <if test="position != null and position != ''">
+            position = #{position}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteDanmaku">
+        DELETE FROM danmaku WHERE id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.wang.animeplatform.pojo.Danmaku">
+        SELECT * FROM danmaku
+    </select>
+
+    <select id="findByqury" resultType="com.wang.animeplatform.pojo.Danmaku">
+        SELECT * FROM danmaku
+        <where>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId}
+            </if>
+            <if test="animeId != null and animeId != ''">
+                AND anime_id = #{animeId}
+            </if>
+        </where>
+    </select>
+    <select id="findByAnimeId" resultType="com.wang.animeplatform.pojo.Danmaku">
+            SELECT * FROM danmaku WHERE anime_id = #{animeId} ORDER BY time ASC
+    </select>
+</mapper>

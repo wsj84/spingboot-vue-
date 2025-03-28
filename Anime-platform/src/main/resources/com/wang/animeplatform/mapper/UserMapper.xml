@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.animeplatform.mapper.UserMapper">
+    <insert id="addUser">
+        insert into users(username, password, email)
+        values (#{username}, #{password}, #{email})
+    </insert>
+    <update id="updateUser">
+        UPDATE users
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="role != null">role = #{role},</if>
+            <if test="isActive != null">is_active = #{isActive},</if>
+            <if test="isVip != null">is_vip = #{isVip},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="deleteUser">
+        delete anime_platform.users from anime_platform.users where id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.wang.animeplatform.pojo.User">
+        SELECT *
+        FROM users
+    </select>
+
+    <select id="findUser" resultType="com.wang.animeplatform.pojo.User">
+        SELECT *
+        FROM users
+        WHERE 1=1
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        <if test="username != null and username != ''">
+            AND username LIKE CONCAT('%', #{username}, '%')
+        </if>
+        <if test="email != null and email != ''">
+            AND email LIKE CONCAT('%', #{email}, '%')
+        </if>
+        <if test="role != null">
+            AND role = #{role}
+        </if>
+        <if test="isActive != null">
+            AND is_active = #{isActive}
+        </if>
+    </select>
+
+    <select id="FindbyId" resultType="com.wang.animeplatform.pojo.User">
+        select * from users where id = #{id}
+    </select>
+    <select id="getUsernameAndPasswordAndrole" resultType="com.wang.animeplatform.pojo.User">
+        select id, username , role from users where username = #{username} and password = #{password}
+    </select>
+</mapper>

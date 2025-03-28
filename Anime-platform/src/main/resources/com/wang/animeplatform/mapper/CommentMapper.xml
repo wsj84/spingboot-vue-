@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.animeplatform.mapper.CommentMapper">
+
+    <insert id="addComment">
+        insert into comments(anime_id, user_id, content)
+        values (#{animeId}, #{userId}, #{content})
+    </insert>
+
+    <update id="updateComment">
+        UPDATE comments
+        SET
+        <if test="content != null and content != ''">
+            content = #{content}
+        </if>
+        WHERE user_id = #{id}
+    </update>
+
+    <delete id="deleteComment">
+        DELETE FROM comments WHERE id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.wang.animeplatform.pojo.Comment">
+        SELECT * FROM comments
+    </select>
+
+    <select id="findById" resultType="com.wang.animeplatform.pojo.Comment">
+        SELECT * FROM comments WHERE user_id = #{id}
+    </select>
+    <select id="queryComment" resultType="com.wang.animeplatform.pojo.Comment">
+        SELECT * FROM comments
+        <where>
+            <if test="animeId != null and animeId != ''">
+                AND anime_id = #{animeId}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId}
+            </if>
+        </where>
+    </select>
+</mapper>

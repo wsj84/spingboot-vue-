@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.animeplatform.mapper.AnimeMapper">
+
+    <insert id="addAnime">
+        insert into animes(title, description, category_id, video_url, thumbnail_url, release_date, view_count, is_vip_only)
+        values (#{title}, #{description}, #{categoryId}, #{videoUrl}, #{thumbnailUrl}, #{releaseDate}, #{viewCount}, #{isVipOnly})
+    </insert>
+
+    <update id="updateAnime">
+        UPDATE animes
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="videoUrl != null and videoUrl != ''">
+                video_url = #{videoUrl},
+            </if>
+            <if test="thumbnailUrl != null and thumbnailUrl != ''">
+                thumbnail_url = #{thumbnailUrl},
+            </if>
+            <if test="releaseDate != null">
+                release_date = #{releaseDate},
+            </if>
+            <if test="viewCount != null">
+                view_count = #{viewCount},
+            </if>
+            <if test="isVipOnly != null">
+                is_vip_only = #{isVipOnly},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="uapdateViewCount">
+        UPDATE animes
+        SET view_count = view_count + 1
+        WHERE id = #{animeId}
+    </update>
+
+    <delete id="deleteAnime">
+        DELETE FROM animes WHERE id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.wang.animeplatform.pojo.Anime">
+        SELECT * FROM animes
+    </select>
+
+    <select id="findById" resultType="com.wang.animeplatform.pojo.Anime">
+        SELECT * FROM animes WHERE id = #{id}
+    </select>
+    <select id="queryAnime" resultType="com.wang.animeplatform.pojo.Anime">
+        SELECT * FROM animes
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                AND category_id = #{categoryId}
+            </if>
+        </where>
+    </select>
+    <select id="findByType" resultType="com.wang.animeplatform.pojo.Anime">
+        SELECT * FROM animes
+        WHERE category_id = #{categoryId} AND id != #{excludeId}
+        ORDER BY RAND()
+        LIMIT #{limit}
+    </select>
+    <select id="findByViewCount" resultType="com.wang.animeplatform.pojo.Anime">
+        SELECT * FROM animes
+        ORDER BY view_count DESC
+    </select>
+</mapper>

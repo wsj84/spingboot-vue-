@@ -1,0 +1,117 @@
+/* 管理页面通用容器样式 */
+.admin-container {
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 管理页面头部样式 */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.admin-header h1 {
+  font-size: 24px;
+  color: #303133;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* 搜索区域样式 */
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-input {
+  width: 300px;
+}
+
+/* 表格样式统一 */
+:deep(.el-table) {
+  width: 100% !important;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+:deep(.el-table .cell) {
+  white-space: nowrap;
+  padding: 0 10px;
+  line-height: 28px;
+}
+
+:deep(.el-table thead) {
+  background-color: #f5f7fa;
+}
+
+:deep(.el-table th.el-table__cell) {
+  background-color: #f5f7fa;
+  color: #606266;
+  font-weight: bold;
+  text-align: center;
+  height: 50px;
+  font-size: 14px;
+  border-bottom: 1px solid #ebeef5;
+}
+
+:deep(.el-table td) {
+  text-align: center;
+}
+
+:deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
+  background-color: #fafafa;
+}
+
+:deep(.el-table__body tr:hover > td) {
+  background-color: #f0f9eb;
+}
+
+/* 分页容器样式 */
+.pagination-container {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 标签和按钮样式 */
+.el-tag {
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+  padding: 0 8px;
+  line-height: 24px;
+}
+
+.el-table .cell .el-button + .el-button {
+  margin-left: 8px;
+}
+
+/* VIP标签特殊样式 */
+.el-tag.el-tag--warning {
+  background-color: #fdf6ec;
+  border-color: #faecd8;
+  color: #e6a23c;
+}
+
+/* 工具提示样式 */
+.el-tooltip__popper {
+  max-width: 200px;
+}
+
+/* 弹窗样式统一 */
+.el-dialog {
+  border-radius: 8px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

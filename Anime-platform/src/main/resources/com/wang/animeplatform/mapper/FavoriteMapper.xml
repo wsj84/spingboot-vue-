@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.animeplatform.mapper.FavoriteMapper">
+
+    <insert id="addFavorite">
+        insert into favorites(user_id, anime_id)
+        values (#{userId}, #{animeId})
+    </insert>
+
+    <delete id="deleteFavorite">
+        DELETE FROM favorites WHERE id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.wang.animeplatform.pojo.Favorite">
+        SELECT * FROM favorites
+    </select>
+
+    <select id="findById" resultType="com.wang.animeplatform.pojo.Favorite">
+        SELECT * FROM favorites WHERE id = #{id} ORDER BY favorited_at DESC
+    </select>
+    <select id="findByUserId" resultType="com.wang.animeplatform.pojo.Favorite">
+        SELECT
+            animes.thumbnail_url,
+            animes.title,
+            animes.is_vip_only,
+            favorites.*
+        FROM
+            favorites
+                JOIN
+            animes
+            ON
+                favorites.anime_id = animes.id
+        WHERE
+            favorites.user_id = ${userId}
+        ORDER BY
+            favorites.favorited_at DESC
+    </select>
+    <select id="checkFavorite" resultType="com.wang.animeplatform.pojo.Favorite">
+        SELECT id from anime_platform.favorites where user_id = ${userId} and anime_id = ${animeId}
+    </select>
+</mapper>

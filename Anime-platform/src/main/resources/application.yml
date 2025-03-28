@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: Anime-platform
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/anime_platform
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 10000MB
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
+
+# application.yml
+file:
+  upload-dir: G:\\Code\\毕设\\Anime-platform\\src\\main\\resources\\static\\image\\
+  base-url: http://localhost:8080/image

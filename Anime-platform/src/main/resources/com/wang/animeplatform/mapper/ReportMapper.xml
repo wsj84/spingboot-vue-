@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.animeplatform.mapper.ReportMapper">
+
+    <insert id="addReport">
+        insert into reports(user_id, reported_user_id, reason,comment_id)
+        values (#{userId}, #{reportedUserId}, #{reason},#{commentId})
+    </insert>
+
+    <delete id="deleteReport">
+        DELETE FROM reports WHERE id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.wang.animeplatform.pojo.Report">
+        SELECT * FROM reports
+    </select>
+
+    <select id="findById" resultType="com.wang.animeplatform.pojo.Report">
+        SELECT * FROM reports WHERE user_id = #{id}
+    </select>
+    <select id="findByCondition" resultType="com.wang.animeplatform.pojo.Report">
+        SELECT * from anime_platform.reports
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="reportedUserId != null">
+                AND reported_user_id = #{reportedUserId}
+            </if>
+        </where>
+    </select>
+</mapper>
